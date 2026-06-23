@@ -1,1 +1,23 @@
-print("Hola! Я будущий бот для изучения испанского языка.")
+import os
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+
+# Функция, которая отвечает на команду /start
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "¡Hola! Я твой будущий бот для изучения испанского языка. "
+        "Скоро мы начнем учить слова, а пока я просто проверяю, что всё работает!"
+    )
+
+if name == '__main__':
+    # Сервер автоматически подставит ваш токен сюда из настроек
+    TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+    
+    if not TOKEN:
+        print("Ошибка: Токен бота не найден в настройках сервера!")
+    else:
+        app = ApplicationBuilder().token(TOKEN).build()
+        app.add_handler(CommandHandler("start", start))
+        
+        print("Бот успешно запущен и слушает команды...")
+        app.run_polling()
